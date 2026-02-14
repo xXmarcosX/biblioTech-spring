@@ -2,7 +2,10 @@ package br.com.bibliotechApp.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -10,19 +13,28 @@ import java.util.Objects;
 @Entity
 @Table(name = "tbl_users")
 public class User implements Serializable {
+    @Serial
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotBlank(message = "O nome de usuário é obirgatório")
     private String name;
+
+    @NotBlank(message = "O email é obrigatório")
     private String email;
+
+    @NotBlank(message = "O CPF é obrigatório")
     private String cpf;
 
     @Column(name = "phone_number")
+    @NotBlank(message = "O número de telefone não pode estar vazio")
     private String phoneNumber;
 
     @JsonFormat(pattern = "dd/MM/yyyy")
+    @NotNull(message = "A data de nascimento é obrigatória")
     private LocalDate birthday;
 
     public User() {}
