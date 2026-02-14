@@ -1,4 +1,6 @@
 package br.com.bibliotechApp.repositories;
 
-public class CategoryRepository {
-}
+import br.com.bibliotechApp.models.Category;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface CategoryRepository extends JpaRepository<Category, Long> { }
