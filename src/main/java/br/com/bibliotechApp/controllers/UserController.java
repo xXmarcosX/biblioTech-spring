@@ -1,5 +1,6 @@
 package br.com.bibliotechApp.controllers;
 
+import br.com.bibliotechApp.data.dto.UserDTO;
 import br.com.bibliotechApp.models.User;
 import br.com.bibliotechApp.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,22 +17,22 @@ public class UserController {
     public UserService service;
 
     @GetMapping("/{id}")
-    public User findById(@PathVariable("id") Long id) {
+    public UserDTO findById(@PathVariable("id") Long id) {
         return service.findById(id);
     }
 
     @GetMapping
-    public List<User> findAll() {
+    public List<UserDTO> findAll() {
         return service.findAll();
     }
 
     @PostMapping
-    public User create(@RequestBody User user) {
+    public UserDTO create(@RequestBody User user) {
         return service.create(user);
     }
 
     @PutMapping("/{id}")
-    public User update(@RequestBody User user, @PathVariable("id") Long id) {
+    public UserDTO update(@RequestBody User user, @PathVariable("id") Long id) {
         return service.update(user, id);
     }
 

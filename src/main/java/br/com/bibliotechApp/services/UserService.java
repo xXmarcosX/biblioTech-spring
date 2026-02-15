@@ -1,6 +1,8 @@
 package br.com.bibliotechApp.services;
 
+import br.com.bibliotechApp.data.dto.UserDTO;
 import br.com.bibliotechApp.exception.ResourceNotFoundException;
+import br.com.bibliotechApp.mapper.ObjectMapper;
 import br.com.bibliotechApp.models.User;
 import br.com.bibliotechApp.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,20 +16,22 @@ public class UserService {
     @Autowired
     public UserRepository repository;
 
-    public User findById(Long id) {
-        return repository.findById(id)
+    public UserDTO findById(Long id) {
+        var entity = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Nenhum usuário encontrado para este ID"));
+
+        return ObjectMapper.parseObject(entity, UserDTO.class);
     }
 
-    public List<User> findAll() {
-        return repository.findAll();
+    public List<UserDTO> findAll() {
+        return ObjectMapper.parseObjectList(repository.findAll(), UserDTO.class);
     }
 
-    public User create(User user) {
-        return repository.save(user);
+    public UserDTO create(User user) {
+        return ObjectMapper.parseObject(repository.save(user), UserDTO.class);
     }
 
-    public User update(User user, Long id) {
+    public UserDTO update(User user, Long id) {
         var entity = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Nenhum usuário encontrado para este ID"));
 
@@ -37,7 +41,7 @@ public class UserService {
         entity.setPhoneNumber(user.getPhoneNumber());
         entity.setBirthday(user.getBirthday());
 
-        return repository.save(entity);
+        return ObjectMapper.parseObject(repository.save(entity), UserDTO.class);
     }
 
     public void delete(Long id) {
