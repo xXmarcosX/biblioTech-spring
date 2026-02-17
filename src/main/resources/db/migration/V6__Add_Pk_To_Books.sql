@@ -1,5 +1,5 @@
 ALTER TABLE tbl_books
-ADD COLUMN category_id INT;
+ADD COLUMN category_id BIGINT;
 
 ALTER TABLE tbl_books
 ADD CONSTRAINT fk_book_category
